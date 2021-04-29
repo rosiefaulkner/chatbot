@@ -6,6 +6,6 @@
      <link rel="stylesheet" type="text/css" href="<?= plugins_url( '/../assets/css/style.css', __FILE__ ) ?>">
 </head>
 <body>
-<script id="botmanWidget" src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/chat.js'></script>
+<script id="botmanWidget" src="<?= plugins_url( '/../assets/js/chat.js', __FILE__ ) ?>"></script>
 </body>
 </html>
