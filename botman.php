@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * Plugin Name: ChatBot
  * Plugin URI: https://www.rosiefaulkner.com
@@ -61,7 +62,7 @@ class chatBot
         if ($isChatbot) {
             // Give the bot something to listen for.
             $this->getBot()->hears('hi', function (BotMan $bot) {
-                $bot->reply('Hello and welcome');
+                $bot->reply('Please tell me a few words about what you are trying to find');
             });
             //             $this->getBot()->fallback(function ($bot) {
             //                 $bot->reply('Sorry, I did not understand these commands. Here is a list of commands I understand: ...');
@@ -73,7 +74,6 @@ class chatBot
                 $conversation->setBot($bot);
                 $bot->startConversation($conversation);
             });
-
             // Start listening
             $this->getBot()->listen();
             exit;
@@ -118,3 +118,4 @@ $chatBot = new chatBot($config);
 
 // Display chat
 $chatBot->displayChat();
+
