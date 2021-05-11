@@ -61,17 +61,20 @@ class chatBot
         $isChatbot = get_query_var('chatlisten');
         if ($isChatbot) {
             // Give the bot something to listen for.
-            $this->getBot()->hears('hi', function (BotMan $bot) {
-                $bot->reply('Please tell me a few words about what you are trying to find');
-            });
+            // $this->getBot()->hears('.*', function (BotMan $bot) {
+            //     $bot->typesAndWaits(2);
+            //     $bot->reply('Please tell me a few words about what you are trying to find');
+            // });
             //             $this->getBot()->fallback(function ($bot) {
             //                 $bot->reply('Sorry, I did not understand these commands. Here is a list of commands I understand: ...');
             //             });
 
             // Start conversation
-            $this->getBot()->hears('hi', function (BotMan $bot) {
+            $this->getBot()->hears('(.*)', function (BotMan $bot, $name) {
+                $bot->typesAndWaits(2);
                 $conversation = new OnboardingConversation();
                 $conversation->setBot($bot);
+                $conversation->setName($name);
                 $bot->startConversation($conversation);
             });
             // Start listening

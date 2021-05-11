@@ -9,18 +9,12 @@ use BotMan\BotMan\Messages\Outgoing\Question;
 
 class OnboardingConversation extends Conversation
 {
-    protected $firstname;
+    protected $firstName;
     protected $email;
 
-    public function askFirstname()
+    public function setName(string $name): void
     {
-        $this->ask('Hello! What is your firstname?', function (Answer $answer) {
-            // Save result
-            $this->firstname = $answer->getText();
-
-            $this->say('Nice to meet you ' . ucfirst(strtolower($this->firstname)));
-            $this->askEmail();
-        });
+        $this->firstName = ucfirst(strtolower($name));
     }
 
     public function askEmail()
@@ -29,7 +23,7 @@ class OnboardingConversation extends Conversation
             // Save result
             $this->email = $answer->getText();
 
-            $this->say('Great - that is all we need, ' . $this->firstname);
+            $this->say('Great - that is all we need, ' . $this->firstName);
         });
     }
 
@@ -38,31 +32,93 @@ class OnboardingConversation extends Conversation
         // This will be called immediately
         $this->askForDemo();
     }
-
-    // ...inside the conversation object...
-    public function askForDemo()
+    private function askWhatsTheIssue()
     {
-        $question0 = Question::create('Please tell me a little bit about what you are trying to find')
-            ->fallback('Unable to find something relevant to your search')
-            ->callbackId('query_user');
-
-        $this->ask($question0, function (Answer $answer0) {
-            // Detect if button was clicked:
-            $selectedText = $answer0->getText(); // will be either 'Schedule me' or 'I need help!'
+        $whatsTheIssue = Question::create('What seems to be the issue?');
+        $this->ask($whatsTheIssue, function (Answer $issueAnswer) {
+            $selectedText = $issueAnswer->getText(); // will be either 'Schedule me' or 'I need help!'
             $args = array(
                 'post_type' => 'post',
                 'post_status' => 'publish',
-				'category_name' => 'blog', // change to constant
-				's'                      => $selectedText,
-			);
-				// The Query
-				$query = new \WP_Query( $args );
-				while($query->have_posts()){
-					$query->the_post(); 
-					$title = the_title('', '', false);
-				}
-				
-            $this->say('You searched for ' . $selectedText . '. Let me see if I can help. Check this out: ' . $title );
+                'category_name' => 'blog', // change to constant
+                's'                      => $selectedText,
+            );
+            // The Query
+            $query = new \WP_Query($args);
+            while ($query->have_posts()) {
+                $query->the_post();
+                $title = the_title('', '', false);
+            }
+
+            $this->say('You searched for ' . $selectedText . '. Let me see if I can help. Check this out: ' . $title);
+        });
+    }
+
+    private function askHowCanIHelp()
+    {
+        $howCanIHelpYou = Question::create('How can we help you today?')
+            ->addButtons([
+                Button::create('Get Support')->value('get_support'),
+                Button::create('Report an issue')->value('report_issue'),
+            ]);
+
+        $this->ask($howCanIHelpYou, function (Answer $helpAnswer) {
+            if ($helpAnswer->isInteractiveMessageReply()) {
+                $help = $helpAnswer->getValue(); // will be either 'get_support' or 'report_issue'
+                // Detect if button was clicked:
+                if ($help == 'get_support') {
+                    $this->askWhatsTheIssue();
+                }else{
+                    $this->askCreateTicket();
+                }
+            }
+        });
+    }
+
+    private function askCreateTicket() {
+        // Redirect to ticket page and create ticket from L1 support
+        // Or ask information within chat to create form entries
+
+    }
+
+    private function askHowCanIHelpClinic()
+    {
+        $howCanIHelpYouClinic = Question::create('How can we help you today?')
+            ->addButtons([
+                Button::create('Schedule a Demo')->value('schedule_demo'),
+                Button::create('Get support')->value('get_clinic_support'),
+            ]);
+
+        $this->ask($howCanIHelpYouClinic, function (Answer $helpAnswerClinic) {
+            if ($helpAnswerClinic->isInteractiveMessageReply()) {
+                $helpClinic = $helpAnswerClinic->getValue(); // will be either 'get_support' or 'invite_provider'
+                // Detect if button was clicked:
+                if ($helpClinic == 'get_clinic_support') {
+                    // $this->askWhatsTheIssue();
+                }
+            }
+        });
+    }
+
+    public function askForDemo()
+    {
+        $whichOneAreYou = Question::create('Hi, ' . $this->firstName . '. Which of the following best describes you?')
+            ->addButtons([
+                Button::create('Pet Owner')->value('pet_owner'),
+                Button::create('Clinic')->value('clinic'),
+            ]);
+
+        $this->ask($whichOneAreYou, function (Answer $personaAnswer) {
+            if ($personaAnswer->isInteractiveMessageReply()) {
+                $persona = $personaAnswer->getValue(); // will be either 'pet owner' or 'clinic'
+                // Detect if button was clicked:
+                if ($persona == 'pet_owner') {
+                    $this->askHowCanIHelp();
+                } else {
+                    // When user is pet clinic
+                    $this->askHowCanIHelpClinic();
+                }
+            }
         });
 
 
