@@ -39,7 +39,7 @@ class OnboardingConversation extends Conversation
     {
         $this->ask('What is your name?', function(Answer $answer) {
             $this->setName($answer->getText());
-            $this->say('Nice to meet you '. $answer->firstName);
+            $this->say('Nice to meet you '. $this->firstName);
             $this->askPersona();
         });
     }
@@ -54,6 +54,7 @@ class OnboardingConversation extends Conversation
         ]);
 
         $this->ask($question, function (Answer $answer) {
+            $t = 1;
             if ($answer->isInteractiveMessageReply()) {
                 $persona = $answer->getValue();
                 if ($persona == 'pet_owner') {

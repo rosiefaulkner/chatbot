@@ -5,8 +5,8 @@
         "doctrine/orm": "^2.8"
     },
     "autoload": {
-        "files": [
-            "inc/OnboardingConversation.php"
+        "classmap": [
+            "src/"
         ]
     }
 }
