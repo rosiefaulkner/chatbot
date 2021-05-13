@@ -31,9 +31,7 @@ class chatBot
         // Load the driver(s) you want to use
         DriverManager::loadDriver(WebDriver::class);
         // Instantiates cache driver
-        $adapter = new PhpFileCache(
-            '/nas/content/live/petprodev1/wp-content/filecache'
-        );
+        $adapter = new PhpFileCache(WP_CONTENT_DIR . '/filecache');
         // Create an instance
         $this->botman = BotManFactory::create($config, new DoctrineCache($adapter));
         add_filter('script_loader_src', [$this, 'addIdToScript'], 10, 2);
@@ -58,8 +56,7 @@ class chatBot
     }
     public function listenChatBot($template): string
     {
-        $isChatbot = get_query_var('chatlisten');
-        if ($isChatbot) {
+        if (get_query_var('chatlisten')) {
             // Give the bot something to listen for.
             // $this->getBot()->hears('.*', function (BotMan $bot) {
             //     $bot->typesAndWaits(2);
@@ -70,12 +67,8 @@ class chatBot
             //             });
 
             // Start conversation
-            $this->getBot()->hears('(.*)', function (BotMan $bot, $name) {
-                $bot->typesAndWaits(2);
-                $conversation = new OnboardingConversation();
-                $conversation->setBot($bot);
-                $conversation->setName($name);
-                $bot->startConversation($conversation);
+            $this->getBot()->hears('.*(Hi|Hello).*', function (BotMan $bot) {
+                $bot->startConversation(new OnboardingConversation());
             });
             // Start listening
             $this->getBot()->listen();
