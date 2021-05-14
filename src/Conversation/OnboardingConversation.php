@@ -1,13 +1,13 @@
 <?php
 
-namespace PetPro\Chatbot;
+namespace PetPro\Chatbot\Conversation;
 
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
-use PetPro\Chatbot\PetOwnerConversation;
-use PetPro\Chatbot\ClinicConversation;
+use PetPro\Chatbot\Conversation\PetOwnerConversation;
+use PetPro\Chatbot\Conversation\ClinicConversation;
 
 class OnboardingConversation extends Conversation
 {
@@ -46,15 +46,15 @@ class OnboardingConversation extends Conversation
 
     public function askPersona() : void
     {
-        $question = Question::create(
-            'Hi, ' . $this->firstName . '. Which of the following best describes you?'
-        )->addButtons([
-            Button::create('Pet Owner')->value('pet_owner'),
-            Button::create('Clinic')->value('clinic'),
-        ]);
+        $text = 'Hi, ' . $this->firstName . '. Which of the following best describes you?';
+        $question = Question::create($text)
+            ->callbackId('onboarding_ask_persona')
+            ->addButtons([
+                Button::create('Pet Owner')->value('pet_owner'),
+                Button::create('Clinic')->value('clinic'),
+            ]);
 
         $this->ask($question, function (Answer $answer) {
-            $t = 1;
             if ($answer->isInteractiveMessageReply()) {
                 $persona = $answer->getValue();
                 if ($persona == 'pet_owner') {

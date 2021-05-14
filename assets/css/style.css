@@ -1,6 +1,7 @@
 body,
 html {
     background-color: #f9f9f9;
+    background-image: none;
     font-family: Ubuntu, "Helvetica Neue", Arial, sans-serif;
     font-size: 14px;
     margin: 0;

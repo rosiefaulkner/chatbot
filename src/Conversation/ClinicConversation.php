@@ -1,6 +1,6 @@
 <?php
 
-namespace PetPro\Chatbot;
+namespace PetPro\Chatbot\Conversation;
 
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -17,6 +17,7 @@ class ClinicConversation extends Conversation
     private function askProblem() : void
     {
         $question = Question::create('How can we help you today?')
+            ->callbackId('clinic_ask_problem')
             ->addButtons([
                 Button::create('Schedule a Demo')->value('schedule_demo'),
                 Button::create('Get support')->value('get_clinic_support'),
