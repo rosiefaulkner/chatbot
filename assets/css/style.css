@@ -73,6 +73,7 @@ html {
     margin-top: 3px;
     float: right;
     cursor: default;
+    user-select: none;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;

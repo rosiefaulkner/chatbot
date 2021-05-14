@@ -28,11 +28,13 @@ class ClinicConversation extends Conversation
                 $clicked = $answer->getValue();
                 
                 if ($clicked == 'schedule_demo') {
-                    $this->say('Test1 is ' . $clicked);
+                    return $this->say('Test1 is ' . $clicked);
                 } elseif ($clicked == 'get_clinic_support') {
-                    $this->say('Test2 is ' . $clicked);
+                    return $this->say('Test2 is ' . $clicked);
                 }
+                return $this->say('What now?');
             }
+            return $this->say('not interactive ' . $clicked);
         });
     }
 
