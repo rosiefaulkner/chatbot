@@ -58,9 +58,9 @@ class OnboardingConversation extends Conversation
             if ($answer->isInteractiveMessageReply()) {
                 $persona = $answer->getValue();
                 if ($persona == 'pet_owner') {
-                    $this->bot->startConversation(new PetOwnerConversation());
+                    return $this->bot->startConversation(new PetOwnerConversation());
                 } elseif ($persona == 'clinic') {
-                    $this->bot->startConversation(new ClinicConversation());
+                    return $this->bot->startConversation(new ClinicConversation());
                 }
             }
         });
