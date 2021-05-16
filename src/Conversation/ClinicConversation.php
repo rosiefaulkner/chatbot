@@ -6,6 +6,7 @@ use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
+use PetPro\Chatbot\Conversation\SupportConversation;
 
 class ClinicConversation extends Conversation
 {
@@ -19,22 +20,21 @@ class ClinicConversation extends Conversation
         $question = Question::create('How can we help you today?')
             ->callbackId('clinic_ask_problem')
             ->addButtons([
-                Button::create('Schedule a Demo')->value('schedule_demo'),
-                Button::create('Get support')->value('get_clinic_support'),
+                Button::create('Schedule a Demo')->value('clinic_schedule_demo'),
+                Button::create('Get support')->value('clinic_get_support'),
             ]);
 
         $this->ask($question, function (Answer $answer) {
-            if ($answer->isInteractiveMessageReply()) {
+            if ($answer->isInteractiveMessageReply()) {                
                 $clicked = $answer->getValue();
-                
-                if ($clicked == 'schedule_demo') {
-                    return $this->say('Test1 is ' . $clicked);
-                } elseif ($clicked == 'get_clinic_support') {
-                    return $this->say('Test2 is ' . $clicked);
+                if ($clicked == 'clinic_schedule_demo') {
+                    $this->say(
+                        '<a href="https://calendly.com/petpro-team/website" target="_blank">Click here</a> to schedule a demo'
+                    );
+                } elseif ($clicked == 'clinic_get_support') {
+                    $this->bot->startConversation(new SupportConversation());
                 }
-                return $this->say('What now?');
             }
-            return $this->say('not interactive ' . $clicked);
         });
     }
 

@@ -29,13 +29,23 @@ class OnboardingConversation extends Conversation
         });
     }
 
-    // This will be called immediately
+    /**
+     * Entry point - called by botman
+     * 
+     * @return void
+     */
     public function run()
     {
-        $this->askName();
+        $this->askPersona();
     }
 
-    public function askName() : void
+    /**
+     * Ask user's name
+     * 
+     * @return void
+     * @deprecated No longer in use since the introduction asks for the user's name
+     */
+    private function askName() : void
     {
         $this->ask('What is your name?', function(Answer $answer) {
             $this->setName($answer->getText());
@@ -44,7 +54,7 @@ class OnboardingConversation extends Conversation
         });
     }
 
-    public function askPersona() : void
+    private function askPersona() : void
     {
         $text = 'Hi, ' . $this->firstName . '. Which of the following best describes you?';
         $question = Question::create($text)
@@ -57,10 +67,10 @@ class OnboardingConversation extends Conversation
         $this->ask($question, function (Answer $answer) {
             if ($answer->isInteractiveMessageReply()) {
                 $persona = $answer->getValue();
-                if ($persona == 'pet_owner') {
-                    return $this->bot->startConversation(new PetOwnerConversation());
+                if ($persona == 'pet_owner') {                    
+                    $this->bot->startConversation(new PetOwnerConversation());
                 } elseif ($persona == 'clinic') {
-                    return $this->bot->startConversation(new ClinicConversation());
+                    $this->bot->startConversation(new ClinicConversation());
                 }
             }
         });
