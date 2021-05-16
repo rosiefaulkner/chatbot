@@ -1,6 +1,7 @@
 body,
 html {
     background-color: #f9f9f9;
+    background-image: none;
     font-family: Ubuntu, "Helvetica Neue", Arial, sans-serif;
     font-size: 14px;
     margin: 0;
@@ -72,6 +73,7 @@ html {
     margin-top: 3px;
     float: right;
     cursor: default;
+    user-select: none;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;

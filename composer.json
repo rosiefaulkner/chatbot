@@ -1,12 +1,14 @@
 {
+    "name": "petpro/chatbot",
+    "description": "PetPro Chatbot",
     "require": {
         "botman/botman": "^2.6",
         "botman/driver-web": "^1.5",
         "doctrine/orm": "^2.8"
     },
     "autoload": {
-        "files": [
-            "inc/OnboardingConversation.php"
-        ]
+        "psr-4": {
+            "PetPro\\Chatbot\\": "src"
+        }
     }
 }
