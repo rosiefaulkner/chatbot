@@ -1,6 +1,6 @@
 <?php
 
-namespace PetPro\Chatbot;
+namespace PetPro\ChatBot;
 
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\BotManFactory;
@@ -10,7 +10,7 @@ use BotMan\BotMan\Drivers\DriverManager;
 use BotMan\BotMan\Interfaces\CacheInterface;
 use BotMan\Drivers\Web\WebDriver;
 use Doctrine\Common\Cache\PhpFileCache;
-use PetPro\Chatbot\Conversation\OnboardingConversation;
+use PetPro\ChatBot\Conversation\OnboardingConversation;
 
 class ChatBot
 {

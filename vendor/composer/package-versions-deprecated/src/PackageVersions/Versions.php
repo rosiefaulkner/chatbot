@@ -74,7 +74,7 @@ final class Versions
   'symfony/string' => 'v5.2.8@01b35eb64cac8467c3f94cd0ce2d0d376bb7d1db',
   'symfony/var-dumper' => 'v5.2.8@d693200a73fae179d27f8f1b16b4faf3e8569eba',
   'tightenco/collect' => 'v8.34.0@b069783ab0c547bb894ebcf8e7f6024bb401f9d2',
-  'petpro/chatbot' => 'dev-cleanup_and_calendly@9dafe667933c00b1bdfd25a57ae7cf8209be9944',
+  'petpro/chatbot' => 'dev-fix_classname@6c0de7870d06e4c572debc0142e5bace2bd69467',
 );
 
     private function __construct()

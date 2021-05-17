@@ -20,6 +20,6 @@ if (!is_admin()) {
         ]
     ];
 
-    (new \PetPro\Chatbot\Chatbot($config))->run();
+    (new \PetPro\ChatBot\ChatBot($config))->run();
 }
 

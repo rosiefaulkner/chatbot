@@ -1,12 +1,12 @@
 <?php
 
-namespace PetPro\Chatbot\Conversation;
+namespace PetPro\ChatBot\Conversation;
 
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
-use PetPro\Chatbot\Conversation\SupportConversation;
+use PetPro\ChatBot\Conversation\SupportConversation;
 
 class PetOwnerConversation extends Conversation
 {
