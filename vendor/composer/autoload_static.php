@@ -57,7 +57,7 @@ class ComposerStaticInit885efc9af71f0fa7bd8eaa6f759699f3
         array (
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
-            'PetPro\\Chatbot\\' => 15,
+            'PetPro\\ChatBot\\' => 15,
             'PackageVersions\\' => 16,
         ),
         'O' => 
@@ -178,7 +178,7 @@ class ComposerStaticInit885efc9af71f0fa7bd8eaa6f759699f3
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
-        'PetPro\\Chatbot\\' => 
+        'PetPro\\ChatBot\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

@@ -1,6 +1,6 @@
 {
     "name": "petpro/chatbot",
-    "description": "PetPro Chatbot",
+    "description": "PetPro ChatBot",
     "require": {
         "botman/botman": "^2.6",
         "botman/driver-web": "^1.5",
@@ -8,7 +8,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PetPro\\Chatbot\\": "src"
+            "PetPro\\ChatBot\\": "src"
         }
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace PetPro\Chatbot\Conversation;
+namespace PetPro\ChatBot\Conversation;
 
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
