@@ -11,8 +11,13 @@
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/chat.js" id="botmanWidget"></script>
         <script type="text/javascript">
             $(function() {
-                $('.btn').click(function() {
-                    window.top.postMessage('botmanMsgBtnClick', '*');
+                if (typeof window.top.botmanChatWidget !== 'undefined') {
+                    window.top.botmanChatWidget.whisper('Hi');
+                }
+                $('body').on('click', '.btn', function() {
+                    if (typeof window.top.botmanChatWidget !== 'undefined') {
+                        // window.top.botmanChatWidget.say($(this).text());
+                    }
                 });
             });
         </script>

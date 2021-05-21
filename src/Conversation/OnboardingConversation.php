@@ -11,22 +11,21 @@ use PetPro\ChatBot\Conversation\ClinicConversation;
 
 class OnboardingConversation extends Conversation
 {
-    protected $firstName;
-    protected $email;
 
-    public function setName(string $name): void
+    /**
+     * @var String
+     */
+    private $firstName;
+
+    /**
+     * Capture user's name for the conversation
+     * 
+     * @param $name String
+     * @return void
+     */
+    private function setName(string $name): void
     {
         $this->firstName = ucfirst(strtolower($name));
-    }
-
-    public function askEmail()
-    {
-        $this->ask('One more thing - what is your email?', function (Answer $answer) {
-            // Save result
-            $this->email = $answer->getText();
-
-            $this->say('Great - that is all we need, ' . $this->firstName);
-        });
     }
 
     /**
@@ -36,22 +35,24 @@ class OnboardingConversation extends Conversation
      */
     public function run()
     {
-        $this->askPersona();
+        $this->askName();
     }
 
     /**
      * Ask user's name
      * 
      * @return void
-     * @deprecated No longer in use since the introduction asks for the user's name
      */
     private function askName() : void
     {
-        $this->ask('What is your name?', function(Answer $answer) {
-            $this->setName($answer->getText());
-            $this->say('Nice to meet you '. $this->firstName);
-            $this->askPersona();
-        });
+        $this->ask(
+            'Hey there, and welcome to our site. What\'s your name?',
+            function(Answer $answer)
+            {
+                $this->setName($answer->getText());
+                $this->askPersona();
+            }
+        );
     }
 
     private function askPersona() : void

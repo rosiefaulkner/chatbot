@@ -96,10 +96,8 @@ class ChatBot
     public function listenChatBot($template): string
     {
         if (get_query_var('chatlisten')) {
-            $this->bot->hears('(.*)', function (BotMan $bot, string $name) {
-                $conversation = new OnboardingConversation();
-                $conversation->setName($name);
-                $bot->startConversation($conversation);
+            $this->bot->hears('Hi', function (BotMan $bot) {
+                $bot->startConversation(new OnboardingConversation());
             });
             
             $this->bot->listen();
