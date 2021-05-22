@@ -9,9 +9,9 @@
  * Author URI: https://www.rosiefaulkner.com
  */
 
-if (!is_admin()) {
-    require_once(__DIR__ . '/vendor/autoload.php');
+require_once(__DIR__ . '/vendor/autoload.php');
 
+if (!is_admin()) {
     $config = [
         'web' => [
             'matchingData' => [
@@ -21,5 +21,6 @@ if (!is_admin()) {
     ];
 
     (new \PetPro\ChatBot\ChatBot($config))->run();
+} else {
+    new \PetPro\ChatBot\ChatBotSettings();
 }
-

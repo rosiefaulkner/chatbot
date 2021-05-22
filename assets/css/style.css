@@ -175,3 +175,13 @@ div.loading-dots .dot-lg {
     color: #fff;
     text-align: center;
 }
+
+.chatbot .msg {
+    display: flex;
+}
+
+.chatbot .msg:before {
+    content: url(../images/agent.jpg);
+    float: left;
+    padding-right: 1em;
+}

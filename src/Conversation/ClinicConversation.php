@@ -18,7 +18,6 @@ class ClinicConversation extends Conversation
     private function askProblem() : void
     {
         $question = Question::create('How can we help you today?')
-            ->callbackId('clinic_ask_problem')
             ->addButtons([
                 Button::create('Schedule a Demo')->value('clinic_schedule_demo'),
                 Button::create('Get support')->value('clinic_get_support'),

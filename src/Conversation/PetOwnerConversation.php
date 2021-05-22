@@ -23,10 +23,9 @@ class PetOwnerConversation extends Conversation
     private function askProblem() : void
     {
         $question = Question::create('How can we help you today?')
-            ->callbackId('pet_owner_ask_problem')
             ->addButtons([
                 Button::create('Get Support')->value('pet_owner_get_support'),
-                Button::create('Report an issue')->value('pet_owner_report_issue'),
+                Button::create('Invite a Care Provider')->value('pet_owner_invite_provider'),
             ]);
 
         $this->ask($question, function (Answer $answer) {
@@ -34,21 +33,20 @@ class PetOwnerConversation extends Conversation
                 $problem = $answer->getValue();
                 if ($problem == 'pet_owner_get_support') {
                     $this->bot->startConversation(new SupportConversation());
-                } elseif ($problem == 'pet_owner_report_issue') {
-                    $this->askCreateTicket();
+                } elseif ($problem == 'pet_owner_invite_provider') {
+                    $this->askInviteProvider();
                 }
             }
         });
     }
 
     /**
-     * Ask Pet Owner Create Ticket
+     * Ask Pet Owner Invite Provider
      * 
      * @return void
      */
-    private function askCreateTicket() {
-        $this->say('This feature is not yet available.');
-        // Redirect to ticket page and create ticket from L1 support
-        // Or ask information within chat to create form entries
+    private function askInviteProvider() {
+        $this->say('Sure thing! First we need just a little information:');
+        $this->say('Care provider invite form feature is not yet available.');
     }
 }

@@ -25,11 +25,6 @@ class ChatBot
     private $cache;
 
     /**
-     * @var string 'file' or 'redis'
-     */
-    private $cacheType = 'file';
-
-    /**
      * Constructor
      */
     function __construct(array $config = [])
@@ -62,14 +57,19 @@ class ChatBot
     private function getCache() : CacheInterface
     {
         if (!$this->cache) {
-            if ($this->cacheType == 'redis') {
-                $this->cache = new RedisCache('127.0.0.1', 6379);
-            } elseif ($this->cacheType == 'file') {
-                $cacheDir = WP_CONTENT_DIR . '/filecache';                
+            $settings = get_option('botman_settings');
+
+            if ($settings['cache_engine'] == 'file') {
+                $cacheDir = $settings['cache_file']['directory'];            
                 if (!is_dir($cacheDir)) {
                     mkdir($cacheDir, 0644);
                 }
                 $this->cache = new DoctrineCache(new PhpFileCache($cacheDir));
+            } elseif ($settings['cache_engine'] == 'redis') {
+                $host = $settings['cache_redis']['host'];
+                $port = $settings['cache_redis']['port'];
+                $auth = $settings['cache_redis']['auth'] ?? null;
+                $this->cache = new RedisCache($host, $port,  $auth);
             } else {
                 throw new \Exception('Unknown cache type specified');
             }
@@ -96,10 +96,8 @@ class ChatBot
     public function listenChatBot($template): string
     {
         if (get_query_var('chatlisten')) {
-            $this->bot->hears('(.*)', function (BotMan $bot, string $name) {
-                $conversation = new OnboardingConversation();
-                $conversation->setName($name);
-                $bot->startConversation($conversation);
+            $this->bot->hears('Hi', function (BotMan $bot) {
+                $bot->startConversation(new OnboardingConversation());
             });
             
             $this->bot->listen();
