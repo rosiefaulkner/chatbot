@@ -59,7 +59,6 @@ class OnboardingConversation extends Conversation
     {
         $text = 'Hi, ' . $this->firstName . '. Which of the following best describes you?';
         $question = Question::create($text)
-            ->callbackId('onboarding_ask_persona')
             ->addButtons([
                 Button::create('Pet Owner')->value('pet_owner'),
                 Button::create('Clinic')->value('clinic'),
