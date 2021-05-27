@@ -27,6 +27,12 @@ html {
     display: flex;
     color: #000;
 }
+.chat .msg ul {
+    padding: 0;
+}
+.chat .msg li {
+    padding: 0.5rem 0 0 0;
+}
 .visitor {
     -webkit-box-pack: end;
     -webkit-justify-content: flex-end;
