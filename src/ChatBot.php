@@ -115,7 +115,13 @@ class ChatBot
         return $template;
     }
 
-    public function listenChatBot($template): string
+    /**
+     * Listen to chat requests
+     * Make sure to only run this on or after 'wp' hook since it requires WP_Query
+     * 
+     * @return void
+     */
+    public function listenChatBot() : void
     {
         if (get_query_var('chatlisten')) {
             $this->bot->hears('Hi', function (BotMan $bot) {
@@ -125,7 +131,6 @@ class ChatBot
             $this->bot->listen();
             exit;
         }
-        return $template;
     }
 
     /**
@@ -134,10 +139,10 @@ class ChatBot
      */
     public function run()
     {
+        add_action('wp', [$this, 'listenChatBot']);
         add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
         add_action('wp_footer', [$this, 'localizeScripts'], 0);
         add_filter('template_include', [$this, 'renderChatBot'], 10, 1);
-        add_filter('template_include', [$this, 'listenChatBot'], 10, 1);
         add_filter('query_vars', [$this, 'queryVars']);
     }
 }
