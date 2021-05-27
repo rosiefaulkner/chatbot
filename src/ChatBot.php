@@ -30,10 +30,31 @@ class ChatBot
     function __construct(array $config = [])
     {
         $this->init($config);
+    }
 
-        add_filter('template_include', [$this, 'renderChatBot'], 10, 1);
-        add_filter('template_include', [$this, 'listenChatBot'], 10, 1);
-        add_filter('query_vars', [$this, 'queryVars']);
+    /**
+     * Enqueue scripts
+     * 
+     * @return void
+     */
+    public function enqueueScripts() : void
+    {
+        wp_enqueue_script('chat-window-js', plugin_dir_url(__DIR__) . '/assets/js/script.js', [], '1.0.0', true);
+        wp_enqueue_script('chat-widget-js', '//cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js', [], '1.0.0', true);
+
+    }
+
+    /**
+     * Localize scripts
+     * 
+     * @return void
+     */
+    public function localizeScripts() : void
+    {
+        if (!session_id()) {
+            session_start();
+        }
+        wp_localize_script('chat-window-js', 'vars', ['userId' => sha1(session_id())]);
     }
 
     /**
@@ -58,6 +79,7 @@ class ChatBot
     {
         if (!$this->cache) {
             $settings = get_option('botman_settings');
+            $settings['cache_engine'] = $settings['cache_engine'] ?? 'file';
 
             if ($settings['cache_engine'] == 'file') {
                 $cacheDir = $settings['cache_file']['directory'];            
@@ -106,9 +128,16 @@ class ChatBot
         return $template;
     }
 
+    /**
+     * Run application
+     * This is the default method executed by BotMan
+     */
     public function run()
     {
-        wp_enqueue_script('chat-window-js', plugin_dir_url(__DIR__) . '/assets/js/script.js', [], '1.0.0', true);
-        wp_enqueue_script('chat-widget-js', '//cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js', [], '1.0.0', true);
+        add_action('wp_enqueue_scripts', [$this, 'enqueueScripts']);
+        add_action('wp_footer', [$this, 'localizeScripts'], 0);
+        add_filter('template_include', [$this, 'renderChatBot'], 10, 1);
+        add_filter('template_include', [$this, 'listenChatBot'], 10, 1);
+        add_filter('query_vars', [$this, 'queryVars']);
     }
 }

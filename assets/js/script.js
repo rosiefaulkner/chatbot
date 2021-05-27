@@ -7,4 +7,5 @@ var botmanWidget = {
     bubbleBackground: '#35C363',
     aboutText: 'Powered By PetPro Connect',
     aboutLink: 'petproconnect.com',
+    userId: vars.userId,
 };
