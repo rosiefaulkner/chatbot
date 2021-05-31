@@ -75,37 +75,4 @@ class OnboardingConversation extends Conversation
             }
         });
     }
-
-
-
-        //         $question1 = Question::create('Would you like a demo?')
-        //             ->fallback('Unable to schedule a demo')
-        //             ->callbackId('create_demo')
-        //             ->addButtons([
-        //                 Button::create('Schedule me')->value('yes'),
-        //                 Button::create('I need help!')->value('no'),
-        //             ]);
-
-        //         $question2 = Question::create('Please select a date and time that works for you')
-        //             ->fallback('Unable to schedule a demo')
-        //             ->callbackId('schedule_demo')
-        //             ->addButtons([
-        //                 Button::create('Select a date')->value('yes')
-        //             ]);
-
-        //         $this->ask($question1, function (Answer $answer1) use ($question2) {
-        //             // Detect if button was clicked:
-        //             if ($answer1->isInteractiveMessageReply()) {
-        //                 $selectedValue = $answer1->getValue(); // will be either 'yes' or 'no'
-        //                 $selectedText = $answer1->getText(); // will be either 'Schedule me' or 'I need help!'
-        //                 if ($selectedValue == 'yes') {
-        //                     $this->ask($question2, function (Answer $answer2) {
-        //                         if ($answer2->isInteractiveMessageReply()) {
-        //                             $this->say('Ok your answer is ' . $answer2->getValue());
-        //                         }
-        //                     });
-        //                 }
-        //             }
-        //         });
-
 }
