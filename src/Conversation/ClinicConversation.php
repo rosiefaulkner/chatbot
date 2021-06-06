@@ -32,7 +32,7 @@ class ClinicConversation extends Conversation
             if ($answer->isInteractiveMessageReply()) {                
                 $clicked = $answer->getValue();
                 if ($clicked == 'clinic_schedule_demo') {
-                    $this->say('<div id="scheduler"><div class="scheduler-x">X</div></div>');
+                    $this->say('<p>Opening calendar...</p><div class="scheduler"><div class="scheduler-x">X</div></div>');
                     $this->askAnythingElse();
                 } elseif ($clicked == 'clinic_get_support') {
                     $this->bot->startConversation(new SupportConversation());

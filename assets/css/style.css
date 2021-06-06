@@ -192,7 +192,7 @@ div.loading-dots .dot-lg {
     padding-right: 1em;
 }
 
-#scheduler {
+.scheduler {
     position: absolute;
     top: 0;
     left: 0;
@@ -200,6 +200,7 @@ div.loading-dots .dot-lg {
     height: 100%;
     overflow: hidden;
     background-color: #fff;
+    display: none;
 }
 
 .scheduler-x {

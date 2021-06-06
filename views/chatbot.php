@@ -23,21 +23,19 @@
                         }
                     });
                     $('body').on('click', '.scheduler-x', function() {
-                        if ($('#scheduler').length > 0) {
-                            $('#scheduler').closest('.chatbot').remove();
-                            obs.disconnect();
-                        }
+                        $(this).closest('.scheduler').hide();
                     });
-                    var obs = $.initialize('#scheduler', function() {
-                        Calendly.initInlineWidget({
-                            url: 'https://calendly.com/petpro-team/website',
-                            parentElement: document.getElementById('scheduler'),
-                            prefill: {},
-                            utm: {}
-                        });
-                        // .then(function() {
-                        //     obs.disconnect();
-                        // });
+                    $.initialize('.scheduler', function() {
+                        let msg = $(this).closest('.chatbot');
+                        if (msg.siblings().length == msg.index() +1) {
+                            Calendly.initInlineWidget({
+                                url: 'https://calendly.com/petpro-team/website',
+                                parentElement: $(this)[0],
+                                prefill: {},
+                                utm: {}
+                            });
+                            $(this).show();
+                        }
                     });
                 });
             };
