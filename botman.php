@@ -5,7 +5,7 @@
  * Plugin URI: https://www.rosiefaulkner.com
  * Description: Adds interactive chatbot for directing users
  * Author: Rosie Faulkner
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author URI: https://www.rosiefaulkner.com
  */
 

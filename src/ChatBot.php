@@ -39,7 +39,7 @@ class ChatBot
      */
     public function enqueueScripts() : void
     {
-        wp_enqueue_script('chat-window-js', plugin_dir_url(__DIR__) . '/assets/js/script.js', [], '1.0.0', true);
+        wp_enqueue_script('chat-window-js', plugin_dir_url(__DIR__) . '/assets/js/script.js', [], '1.0.1', true);
         wp_enqueue_script('chat-widget-js', '//cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js', [], '1.0.0', true);
 
     }
@@ -127,7 +127,7 @@ class ChatBot
             $this->bot->hears('Hi', function (BotMan $bot) {
                 $bot->startConversation(new OnboardingConversation());
             });
-            
+
             $this->bot->listen();
             exit;
         }
