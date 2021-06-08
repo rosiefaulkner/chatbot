@@ -7,15 +7,22 @@
         <link rel="stylesheet" type="text/css" href="<?= plugins_url('/../assets/css/style.css', __FILE__) ?>" rel="preload" />
     </head>
     <body>
-        <script type="text/javascript" src="//code.jquery.com/jquery-3.6.0.slim.min.js" defer></script>
-        <script type="text/javascript" src="//cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/chat.js" id="botmanWidget" defer></script>
-        <script type="text/javascript" src="//assets.calendly.com/assets/external/widget.js" defer></script>
-        <script type="text/javascript" src="<?= plugins_url('/../assets/js/jquery.initialize.min.js', __FILE__) ?>" defer></script>
-        <script type="text/javascript">
+        <script src="//code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous" defer></script>
+        <script src="//cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/chat.js" id="botmanWidget" defer></script>
+        <script src="//assets.calendly.com/assets/external/widget.js" defer></script>
+        <script src="<?= plugins_url('/../assets/js/jquery.initialize.min.js', __FILE__) ?>" defer></script>
+        <script src="<?= plugins_url('/../assets/js/chat.js', __FILE__) ?>" defer></script>
+        <script>
             window.onload = () => {
                 $(function() {
-                    if (typeof window.top.botmanChatWidget !== 'undefined') {
+                    // var chat = new Chat('.chat');
+                    if (
+                        typeof window.top.botmanChatWidget !== 'undefined'
+                        // && !chat.started()
+                    ) {
                         window.top.botmanChatWidget.whisper('Hi');
+                    //} else {
+                    //    chat.resume();t
                     }
                     $('body').on('click', '.btn', function() {
                         if (typeof window.top.botmanChatWidget !== 'undefined') {
